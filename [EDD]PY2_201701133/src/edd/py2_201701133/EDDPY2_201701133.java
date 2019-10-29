@@ -5,6 +5,8 @@
  */
 package edd.py2_201701133;
 
+import Estructuras.TablaHASH;
+
 /**
  *
  * @author Aragon Perez
@@ -17,7 +19,24 @@ public class EDDPY2_201701133 {
     public static void main(String[] args) {
         // TODO code application logic here
         Login FMLogin=new Login();
+        TablaHASH tb=new TablaHASH();
+        
+        //creacion de los primeros 7 nodos
+        tb.NuevoNodo("", "");//1
+        tb.NuevoNodo("", "");//2
+        tb.NuevoNodo("", "");//3
+        tb.NuevoNodo("", "");//4
+        tb.NuevoNodo("", "");//5
+        tb.NuevoNodo("", "");//6
+        tb.NuevoNodo("", "");//7
+        
+        //tb.ComprobacionAunmento();
+
         FMLogin.show();
+        
+        
+        
+        
     }
     
 }
