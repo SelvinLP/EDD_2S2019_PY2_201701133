@@ -5,12 +5,15 @@
  */
 package edd.py2_201701133;
 
+import javax.swing.*;
+
+
 /**
  *
  * @author Aragon Perez
  */
 public class Registro extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Registro
      */
@@ -45,6 +48,11 @@ public class Registro extends javax.swing.JFrame {
         });
 
         jButton2.setText("REGISTRAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("USUARIO");
 
@@ -111,6 +119,27 @@ public class Registro extends javax.swing.JFrame {
         jPasswordField1.setText(null);
         this.hide();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Registro
+        String usu=jTextField1.getText();
+        String pas=jPasswordField1.getText();
+        int longitud=pas.length();
+        if(longitud<8){
+            JOptionPane.showMessageDialog(null, "Contraseña con menos de 8 Caracteres");
+            jTextField1.setText("");
+            jPasswordField1.setText("");
+        }else{
+            //comprobacion si el usuario existe
+            boolean bandera=EDDPY2_201701133.tb.BusquedaExistencia(usu);
+            if(bandera){
+                //la usuario ya existe
+            }else{
+                //insertamos el usuario
+            }
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Estructuras;
-
+import java.io.*;
 /**
  *
  * @author Aragon Perez
@@ -12,6 +12,7 @@ package Estructuras;
 class NodoTabla{
     String NombreUsuario;
     String Contraseña;
+    String TimeStamp;
     NodoTabla Siguiente;
     NodoTabla Anterior;
     //apuntador a matriz de adyacencia
@@ -46,7 +47,7 @@ public class TablaHASH {
             nuevo.Anterior=Ultimo;
             Ultimo=nuevo;
         }
-        int Hash = name.hashCode()%size;
+        //int Hash = name.hashCode()%size;
         //System.out.println(name+"  El valor del Hash es: "+Hash);
     }
     public void ComprobacionAunmento(){
@@ -74,7 +75,82 @@ public class TablaHASH {
         
     }
     
+    public boolean BusquedaExistencia(String Nombre){
+        boolean bandera=false;
+        NodoTabla aux=Raiz;
+        while(aux !=null){
+            if(aux.NombreUsuario==Nombre){
+                bandera=true;
+                break;
+            }
+            aux=aux.Siguiente;
+        }
+        return bandera;
+    } 
     
+    public void AsignacionDato(String usu,String pas){
+        NodoTabla aux=Raiz;
+        int Hash = usu.hashCode()%size;
+        System.out.println(usu+"  El valor del Hash es: "+Hash);
+        while(aux!=null){
+            
+            aux=aux.Siguiente;
+        }
+        
+    }
     
+    //Metodo para Graficar
+    public void GraficarTabla() throws IOException{
+        String ruta = "TablaHash.dot";
+        File archivo = new File(ruta);
+        BufferedWriter Lect;
+        Lect = new BufferedWriter(new FileWriter(archivo));
+        String CadenaGraficar="digraph Pila { \n";
+        CadenaGraficar+="   rankdir=LR;\n" +"   node [shape=record,width=.1,height=.1];\n";
+        CadenaGraficar+="   N0 [label = \"";
+        //agregamos los nodos
+        NodoTabla aux=Raiz;
+        int cont=0;
+        while(aux !=null){
+            
+            if(aux.Siguiente==null){
+                CadenaGraficar+="{"+cont+")|<fl"+cont+">} ";
+            }else{
+                CadenaGraficar+="{"+cont+")|<fl"+cont+">} |";
+            }
+            cont++;
+            aux=aux.Siguiente;
+            
+        }
+        CadenaGraficar+="\"];\n";
+        //creacion de enlaces
+        aux=Raiz;
+        cont=1;
+        while(aux !=null){
+            if(aux.NombreUsuario!=""){
+                
+                CadenaGraficar+="N"+cont+"[label = \"{<n> Usuario:"+aux.NombreUsuario+" Contraseña:"+aux.Contraseña+" Timestamp:"+aux.TimeStamp+"|<p> }\"];\n";
+                //CadenaGraficar+="{rank=same;N0:fl"+cont+";N"+cont+"}\n";
+                CadenaGraficar+="N0:fl"+(cont-1)+" -> "+"N"+cont+":n; \n";
+            }
+            cont++;
+            aux=aux.Siguiente;
+            
+        }
+        
+        
+        CadenaGraficar+="}";
+        Lect.write(CadenaGraficar);
+        Lect.close();
+        try {
+            String cmd = "dot -Tpng TablaHash.dot -o TablaHash.png"; 
+            Runtime.getRuntime().exec(cmd);
+            Runtime.getRuntime().exec("cmd /C start TablaHash.png");  
+        }catch (IOException ioe) {
+            //en caso de error
+            System.out.println (ioe);
+        }
+        
+    }
     
 }

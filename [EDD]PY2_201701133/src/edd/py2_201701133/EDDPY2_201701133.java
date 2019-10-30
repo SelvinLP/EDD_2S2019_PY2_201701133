@@ -6,20 +6,21 @@
 package edd.py2_201701133;
 
 import Estructuras.TablaHASH;
+import java.io.IOException;
 
 /**
  *
  * @author Aragon Perez
  */
 public class EDDPY2_201701133 {
-
+    public static Login FMLogin=new Login();
+    public static TablaHASH tb=new TablaHASH();
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        Login FMLogin=new Login();
-        TablaHASH tb=new TablaHASH();
+        
         
         //creacion de los primeros 7 nodos
         tb.NuevoNodo("", "");//1
@@ -29,9 +30,10 @@ public class EDDPY2_201701133 {
         tb.NuevoNodo("", "");//5
         tb.NuevoNodo("", "");//6
         tb.NuevoNodo("", "");//7
-        
+    
         //tb.ComprobacionAunmento();
 
+        tb.GraficarTabla();
         FMLogin.show();
         
         
