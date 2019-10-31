@@ -33,7 +33,7 @@ public class EDDPY2_201701133 {
     
         //tb.ComprobacionAunmento();
 
-        tb.GraficarTabla();
+        
         FMLogin.show();
         
         

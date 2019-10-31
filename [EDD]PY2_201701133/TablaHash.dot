@@ -2,4 +2,6 @@ digraph Pila {
    rankdir=LR;
    node [shape=record,width=.1,height=.1];
    N0 [label = "{0)|<fl0>} |{1)|<fl1>} |{2)|<fl2>} |{3)|<fl3>} |{4)|<fl4>} |{5)|<fl5>} |{6)|<fl6>} "];
+N5[label = "{<n> *-Usuario: Selvin     *-Contraseña: asfasfasfs     *-Timestamp: 22:29:09 30/10/2019|<p> }"];
+N0:fl4 -> N5:n; 
 }

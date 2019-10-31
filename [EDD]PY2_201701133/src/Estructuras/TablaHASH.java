@@ -5,6 +5,9 @@
  */
 package Estructuras;
 import java.io.*;
+import java.text.*;
+import java.time.Clock;
+import java.util.*;
 /**
  *
  * @author Aragon Perez
@@ -33,7 +36,7 @@ public class TablaHASH {
     int sizeproximo;
     public TablaHASH() {
         Raiz=null;
-        size=7;
+        size=1;
         sizeproximo=7;
     }
     
@@ -46,6 +49,7 @@ public class TablaHASH {
             Ultimo.Siguiente=nuevo;
             nuevo.Anterior=Ultimo;
             Ultimo=nuevo;
+            size++;
         }
         //int Hash = name.hashCode()%size;
         //System.out.println(name+"  El valor del Hash es: "+Hash);
@@ -64,8 +68,9 @@ public class TablaHASH {
         //comprobamos si es primo; es falso es que no es primo
         if(BanderaPrimo==true){
             //generamos un ciclo para crar los nuevos nodos
-            //System.out.println("Proximo numero Primo:  "+size);
-            for(int a=1;a<=(sizeproximo-size);a++){
+            //System.out.println("Proximo numero Primo:  "+sizeproximo);
+            int limite=size;
+            for(int a=1;a<=(sizeproximo-limite);a++){
                 NuevoNodo("", "");
             }
         }else{
@@ -79,7 +84,7 @@ public class TablaHASH {
         boolean bandera=false;
         NodoTabla aux=Raiz;
         while(aux !=null){
-            if(aux.NombreUsuario==Nombre){
+            if(aux.NombreUsuario.equals(Nombre)){
                 bandera=true;
                 break;
             }
@@ -87,14 +92,85 @@ public class TablaHASH {
         }
         return bandera;
     } 
-    
+    NodoTabla BusquedaInsercion(NodoTabla aux,int hash){
+        int Ciclo=1;
+        while(hash>=Ciclo){
+            //System.out.println(Ciclo);
+            //que pasa sobre pasa el tamaño de la lista
+            if(aux==null){
+                aux=Raiz;
+            }
+            aux=aux.Siguiente;
+            Ciclo++;
+            
+        }
+        return aux;
+    }
     public void AsignacionDato(String usu,String pas){
         NodoTabla aux=Raiz;
         int Hash = usu.hashCode()%size;
+        //obtenemos la fecha
+        Date TimeStamp=new Date();
+        DateFormat FormatoHoraFecha = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        
+        if(Hash<0){
+            Hash=Hash*-1;
+        }
         System.out.println(usu+"  El valor del Hash es: "+Hash);
+        
+        //insertamos
+        aux=BusquedaInsercion(aux, Hash);
+        //comprobamos si existe colosion
+        if(aux.NombreUsuario.equals("")){
+            aux.TimeStamp=FormatoHoraFecha.format(TimeStamp);
+            aux.NombreUsuario=usu;
+            aux.Contraseña=pas;
+        }else{
+            //recalculamos el hash
+            Hash=Hash*Hash;
+            aux=Raiz;
+            aux=BusquedaInsercion(aux, Hash);
+            if(aux.NombreUsuario.equals("")){
+                aux.TimeStamp=FormatoHoraFecha.format(TimeStamp);
+                aux.NombreUsuario=usu;
+                aux.Contraseña=pas;
+            }else{
+                boolean bandera=true;
+                while(bandera){
+                    if(aux.NombreUsuario.equals("")){
+                        aux.TimeStamp=FormatoHoraFecha.format(TimeStamp);
+                        aux.NombreUsuario=usu;
+                        aux.Contraseña=pas;
+                        bandera=false;
+                    }else{
+                        if(aux.Siguiente==null){
+                            aux=Raiz;
+                        }else{
+                            aux=aux.Siguiente;
+                        }
+                    }
+                }
+                //fin ciclo
+            }//fin else segunda colisopn
+        }//fin else primera colision
+        
+        //que pasa si sobrepasa el 75%
+        aux=Raiz;
+        int llenos=0;
         while(aux!=null){
-            
+            if(aux.NombreUsuario.equals("")){
+                //esta vacio
+            }else{
+                llenos++;
+            }
             aux=aux.Siguiente;
+        }
+        //System.out.println(llenos);
+        double Porcentaje=(double)llenos/size;
+        //System.out.println(Porcentaje);
+        if(Porcentaje>0.75){
+            //incrementa
+            ComprobacionAunmento();
         }
         
     }
@@ -129,7 +205,7 @@ public class TablaHASH {
         while(aux !=null){
             if(aux.NombreUsuario!=""){
                 
-                CadenaGraficar+="N"+cont+"[label = \"{<n> Usuario:"+aux.NombreUsuario+" Contraseña:"+aux.Contraseña+" Timestamp:"+aux.TimeStamp+"|<p> }\"];\n";
+                CadenaGraficar+="N"+cont+"[label = \"{<n> *-Usuario: "+aux.NombreUsuario+"     *-Contraseña: "+aux.Contraseña+"     *-Timestamp: "+aux.TimeStamp+"|<p> }\"];\n";
                 //CadenaGraficar+="{rank=same;N0:fl"+cont+";N"+cont+"}\n";
                 CadenaGraficar+="N0:fl"+(cont-1)+" -> "+"N"+cont+":n; \n";
             }
