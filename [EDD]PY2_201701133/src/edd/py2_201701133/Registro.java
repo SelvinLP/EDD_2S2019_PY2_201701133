@@ -141,7 +141,7 @@ public class Registro extends javax.swing.JFrame {
         String pas=jPasswordField1.getText();
         int longitud=pas.length();
         if(longitud<8){
-            JOptionPane.showMessageDialog(null, "Contraseña con menos de 8 Caracteres");
+            JOptionPane.showMessageDialog(null,"Contraseña con menos de 8 Caracteres","CREACION USUARIO", JOptionPane.WARNING_MESSAGE);
             Limpiar();
         }else{
             //comprobacion si el usuario existe
@@ -149,19 +149,12 @@ public class Registro extends javax.swing.JFrame {
             //System.out.println(bandera);
             if(bandera){
                 //la usuario ya existe
-                JOptionPane.showMessageDialog(null, "El Usuario ya existe");
+                JOptionPane.showMessageDialog(null, "El Usuario ya existe","CREACION USUARIO", JOptionPane.WARNING_MESSAGE);
                 Limpiar();
             }else{
                 //insertamos el usuario
                 EDDPY2_201701133.tb.AsignacionDato(usu, pas);
-                
-                //temporal
-                try {
-                    EDDPY2_201701133.tb.GraficarTabla();
-                } catch (IOException ex) {
-                    Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+                JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 Limpiar();
             }
         }

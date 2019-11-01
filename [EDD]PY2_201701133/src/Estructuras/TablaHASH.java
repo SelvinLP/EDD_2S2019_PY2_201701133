@@ -92,6 +92,18 @@ public class TablaHASH {
         }
         return bandera;
     } 
+    public boolean BusquedaInicioSesion(String usu, String pass){
+        boolean bandera=false;
+        NodoTabla aux=Raiz;
+        while(aux!=null){
+            if(aux.NombreUsuario.equals(usu)  && aux.Contraseña.equals(pass)){
+                bandera=true;
+                break;
+            }
+            aux=aux.Siguiente;
+        }
+        return bandera;
+    }
     NodoTabla BusquedaInsercion(NodoTabla aux,int hash){
         int Ciclo=1;
         while(hash>=Ciclo){

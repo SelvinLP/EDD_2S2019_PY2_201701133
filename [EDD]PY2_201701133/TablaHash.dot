@@ -2,6 +2,12 @@ digraph Pila {
    rankdir=LR;
    node [shape=record,width=.1,height=.1];
    N0 [label = "{0)|<fl0>} |{1)|<fl1>} |{2)|<fl2>} |{3)|<fl3>} |{4)|<fl4>} |{5)|<fl5>} |{6)|<fl6>} "];
-N5[label = "{<n> *-Usuario: Selvin     *-Contraseña: asfasfasfs     *-Timestamp: 22:29:09 30/10/2019|<p> }"];
+N2[label = "{<n> *-Usuario: Jesy     *-Contraseña: PassJesy12     *-Timestamp: 21:36:30 31/10/2019|<p> }"];
+N0:fl1 -> N2:n; 
+N3[label = "{<n> *-Usuario: UsuarioCargaxd     *-Contraseña: lacontraseñaxd     *-Timestamp: 21:36:30 31/10/2019|<p> }"];
+N0:fl2 -> N3:n; 
+N5[label = "{<n> *-Usuario: Selvin     *-Contraseña: 12345678     *-Timestamp: 21:36:30 31/10/2019|<p> }"];
 N0:fl4 -> N5:n; 
+N7[label = "{<n> *-Usuario: Jose     *-Contraseña: Contraseña1     *-Timestamp: 21:36:30 31/10/2019|<p> }"];
+N0:fl6 -> N7:n; 
 }

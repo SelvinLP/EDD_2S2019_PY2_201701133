@@ -5,6 +5,8 @@
  */
 package edd.py2_201701133;
 
+import javax.swing.*;
+
 /**
  *
  * @author Aragon Perez
@@ -137,8 +139,20 @@ public class Login extends javax.swing.JFrame {
             Formulario_Admin FormAdmin=new Formulario_Admin();
             FormAdmin.show();
             this.dispose();
-            Limpiar();
+            
+        }else{
+            boolean bandera=EDDPY2_201701133.tb.BusquedaInicioSesion(usu, pas);
+            if(bandera){
+                //Ingreso Correctamente
+                Formulario_Usuario FormUsu=new Formulario_Usuario();
+                FormUsu.show();
+                this.dispose();
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "--Error al Ingresar los datos--","INICIO SESION", JOptionPane.WARNING_MESSAGE);
+            }
         }
+        Limpiar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
