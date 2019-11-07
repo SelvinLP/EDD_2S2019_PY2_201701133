@@ -8,6 +8,8 @@ package edd.py2_201701133;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+
 import java.util.logging.*;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -164,14 +166,40 @@ public class Formulario_Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        //CustomPanel panl=new CustomPanel();
-                //temporal
         try {
+            // TODO add your handling code here:
+            //generamos la imagen
             EDDPY2_201701133.tb.GraficarTabla();
         } catch (IOException ex) {
-            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Formulario_Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Formulario_Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        Formulario_ReporteHash FmReporteHash=new Formulario_ReporteHash();
+        FmReporteHash.show();
+        //generamos el html y metemos la imagen
+        File HTMLREPORTHASH=new File("TablaHash.html");
+
+        
+        //empezamos a agregar la imagen
+        try {
+            BufferedWriter Escritura = new BufferedWriter(new FileWriter(HTMLREPORTHASH));
+            Escritura.write("<HTML>\n");
+            Escritura.write("<HEAD>\n");
+            Escritura.write("<TITLE>REPORTE TABLA HASH</TITLE>\n");
+            Escritura.write("</HEAD>\n");
+            Escritura.write("<BODY>\n");
+            Escritura.write("<img src=\"TablaHash.png\">\n");
+            Escritura.write("</BODY>\n");
+            Escritura.write("</HTML>\n");
+            Escritura.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Formulario_Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -23,7 +23,7 @@ public class EDDPY2_201701133 {
         
         
         //creacion de los primeros 7 nodos
-        tb.NuevoNodo("", "");//1
+        tb.NuevoNodo("Admin", "Admin");//1
         tb.NuevoNodo("", "");//2
         tb.NuevoNodo("", "");//3
         tb.NuevoNodo("", "");//4

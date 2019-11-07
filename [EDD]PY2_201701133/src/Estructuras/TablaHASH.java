@@ -5,6 +5,9 @@
  */
 package Estructuras;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.*;
 import java.time.Clock;
 import java.util.*;
@@ -119,6 +122,8 @@ public class TablaHASH {
         return aux;
     }
     public void AsignacionDato(String usu,String pas){
+        //la i es para elevarla en las colisiones
+        int intento=0;
         NodoTabla aux=Raiz;
         int Hash = usu.hashCode()%size;
         //obtenemos la fecha
@@ -128,43 +133,27 @@ public class TablaHASH {
         if(Hash<0){
             Hash=Hash*-1;
         }
-        System.out.println(usu+"  El valor del Hash es: "+Hash);
         
-        //insertamos
-        aux=BusquedaInsercion(aux, Hash);
         //comprobamos si existe colosion
-        if(aux.NombreUsuario.equals("")){
-            aux.TimeStamp=FormatoHoraFecha.format(TimeStamp);
-            aux.NombreUsuario=usu;
-            aux.Contraseña=pas;
-        }else{
-            //recalculamos el hash
-            Hash=Hash*Hash;
+        
+        boolean bandera=true;
+        while(bandera){
             aux=Raiz;
             aux=BusquedaInsercion(aux, Hash);
             if(aux.NombreUsuario.equals("")){
+                //encuentra posicion vacia
+                System.out.println(usu+"  El valor del Hash es: "+Hash);
                 aux.TimeStamp=FormatoHoraFecha.format(TimeStamp);
                 aux.NombreUsuario=usu;
                 aux.Contraseña=pas;
+                bandera=false;
             }else{
-                boolean bandera=true;
-                while(bandera){
-                    if(aux.NombreUsuario.equals("")){
-                        aux.TimeStamp=FormatoHoraFecha.format(TimeStamp);
-                        aux.NombreUsuario=usu;
-                        aux.Contraseña=pas;
-                        bandera=false;
-                    }else{
-                        if(aux.Siguiente==null){
-                            aux=Raiz;
-                        }else{
-                            aux=aux.Siguiente;
-                        }
-                    }
-                }
-                //fin ciclo
-            }//fin else segunda colisopn
-        }//fin else primera colision
+                //no encuentra posicion vacia
+                System.out.println(usu+"  Hubo Colision Nuevo Calculo: "+Hash);
+                intento++;
+                Hash = (Hash+(intento*intento)) %size;
+            }
+        }
         
         //que pasa si sobrepasa el 75%
         aux=Raiz;
@@ -188,7 +177,7 @@ public class TablaHASH {
     }
     
     //Metodo para Graficar
-    public void GraficarTabla() throws IOException{
+    public void GraficarTabla() throws IOException, NoSuchAlgorithmException{
         String ruta = "TablaHash.dot";
         File archivo = new File(ruta);
         BufferedWriter Lect;
@@ -216,8 +205,19 @@ public class TablaHASH {
         cont=1;
         while(aux !=null){
             if(aux.NombreUsuario!=""){
+                //hash para contraseña
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] hash = digest.digest(aux.Contraseña.getBytes(StandardCharsets.UTF_8));
+                StringBuffer hexString = new StringBuffer();
+
+                for (int i = 0; i < hash.length; i++) {
+                    String hex = Integer.toHexString(0xff & hash[i]);
+                    if(hex.length() == 1) hexString.append('0');
+                    hexString.append(hex);
+                }
                 
-                CadenaGraficar+="N"+cont+"[label = \"{<n> *-Usuario: "+aux.NombreUsuario+"     *-Contraseña: "+aux.Contraseña+"     *-Timestamp: "+aux.TimeStamp+"|<p> }\"];\n";
+                
+                CadenaGraficar+="N"+cont+"[label = \"{<n> *-Usuario: "+aux.NombreUsuario+"     *-Contraseña: "+hexString.toString()+"     *-Timestamp: "+aux.TimeStamp+"|<p> }\"];\n";
                 //CadenaGraficar+="{rank=same;N0:fl"+cont+";N"+cont+"}\n";
                 CadenaGraficar+="N0:fl"+(cont-1)+" -> "+"N"+cont+":n; \n";
             }
@@ -233,7 +233,7 @@ public class TablaHASH {
         try {
             String cmd = "dot -Tpng TablaHash.dot -o TablaHash.png"; 
             Runtime.getRuntime().exec(cmd);
-            Runtime.getRuntime().exec("cmd /C start TablaHash.png");  
+//            Runtime.getRuntime().exec("cmd /C start TablaHash.png");  
         }catch (IOException ioe) {
             //en caso de error
             System.out.println (ioe);
