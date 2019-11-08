@@ -5,6 +5,7 @@
  */
 package edd.py2_201701133;
 
+import Estructuras.Grafo;
 import javax.swing.*;
 
 /**
@@ -153,6 +154,9 @@ public class Login extends javax.swing.JFrame {
             }
         }
         Limpiar();
+        
+        //creacion del la matriz de adyacencia
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

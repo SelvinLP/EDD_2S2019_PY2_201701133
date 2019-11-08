@@ -9,7 +9,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.*;
-import java.time.Clock;
 import java.util.*;
 /**
  *
@@ -22,12 +21,15 @@ class NodoTabla{
     NodoTabla Siguiente;
     NodoTabla Anterior;
     //apuntador a matriz de adyacencia
+    Grafo GrafoUsuario;
 
     public NodoTabla(String Nombre,String Pass) {
         this.NombreUsuario=Nombre;
         this.Contraseña=Pass;
         this.Siguiente=null;
         this.Anterior=null;
+        this.GrafoUsuario=null;
+        this.TimeStamp="";
     }
     
 }
@@ -76,6 +78,34 @@ public class TablaHASH {
             for(int a=1;a<=(sizeproximo-limite);a++){
                 NuevoNodo("", "");
             }
+            
+            //cambiamos las posiciones de los datos
+            Object[][] DatosTem=new Object[this.size][5];
+            NodoTabla aux=Raiz;
+            int i=0;
+            while(aux!=null){
+                if(aux.NombreUsuario.equals("")){
+                }else{
+                    DatosTem[i][0]=aux.NombreUsuario;
+                    DatosTem[i][1]=aux.Contraseña;
+                    DatosTem[i][2]=aux.TimeStamp;
+                    DatosTem[i][3]=aux.GrafoUsuario;
+                    aux.NombreUsuario="";
+                    aux.Contraseña="";
+                    aux.TimeStamp="";
+                    aux.GrafoUsuario=null;
+                }
+                aux=aux.Siguiente;
+                i++;
+            }
+            for (Object[] DatosTem1 : DatosTem) {
+                
+                if(DatosTem1[0]!=null){
+                    AsignacionDato(DatosTem1[0].toString(), DatosTem1[1].toString(),DatosTem1[2].toString(),(Grafo)DatosTem1[3]);
+                }
+            }
+            
+            
         }else{
             //en caso de que no sea primo efectuamos nuevamente el metodo
             ComprobacionAunmento();
@@ -121,9 +151,9 @@ public class TablaHASH {
         }
         return aux;
     }
-    public void AsignacionDato(String usu,String pas){
+    public void AsignacionDato(String usu,String pas,String Tiempo,Grafo NodoG){
         //la i es para elevarla en las colisiones
-        int intento=0;
+        int intento=1;
         NodoTabla aux=Raiz;
         int Hash = usu.hashCode()%size;
         //obtenemos la fecha
@@ -137,21 +167,80 @@ public class TablaHASH {
         //comprobamos si existe colosion
         
         boolean bandera=true;
+        int preHash;
+        //para colisiones
+        preHash=Hash;
+        System.out.println(usu+"  Hash: "+preHash);
+        //en caso de que se encicle las colisiones
+        int EvitarCicloHash=Hash;
         while(bandera){
             aux=Raiz;
             aux=BusquedaInsercion(aux, Hash);
             if(aux.NombreUsuario.equals("")){
                 //encuentra posicion vacia
-                System.out.println(usu+"  El valor del Hash es: "+Hash);
-                aux.TimeStamp=FormatoHoraFecha.format(TimeStamp);
+                System.out.println(usu+"  Se Inserto valor con Hash: "+Hash);
+                if(Tiempo.equals("")){
+                    aux.TimeStamp=FormatoHoraFecha.format(TimeStamp);
+                }else{
+                    aux.TimeStamp=Tiempo;
+                }
+                
                 aux.NombreUsuario=usu;
                 aux.Contraseña=pas;
                 bandera=false;
+                //creamos el grafo
+                if(NodoG==null){
+                    Grafo gr=new Grafo();
+                    aux.GrafoUsuario=gr;
+                }else{
+                    aux.GrafoUsuario=NodoG;
+                }
             }else{
                 //no encuentra posicion vacia
-                System.out.println(usu+"  Hubo Colision Nuevo Calculo: "+Hash);
                 intento++;
-                Hash = (Hash+(intento*intento)) %size;
+                Hash = (preHash+(intento*intento)) %size;
+                System.out.println(usu+"  Hubo Colision Nuevo Calculo es: "+Hash);
+                if(Hash<0){
+                    Hash=Hash*-1;
+                }
+                if(Hash==EvitarCicloHash){
+                    System.out.println(usu+"  Se enciclo Hash: "+Hash);
+                    boolean banderaciclohash=true;
+                    int posicion=Hash;
+                    aux=Raiz;
+                    aux=BusquedaInsercion(aux, Hash);
+                    while (banderaciclohash) {                        
+                        if(aux.NombreUsuario.equals("")){
+                            System.out.println(usu+"  Se Inserto valor con Hash: "+posicion);
+                            if(Tiempo.equals("")){
+                                aux.TimeStamp=FormatoHoraFecha.format(TimeStamp);
+                            }else{
+                                aux.TimeStamp=Tiempo;
+                            }
+                            aux.NombreUsuario=usu;
+                            aux.Contraseña=pas;
+                             //agregamos el grafo
+                            if(NodoG==null){
+                                Grafo gr=new Grafo();
+                                aux.GrafoUsuario=gr;
+                            }else{
+                                aux.GrafoUsuario=NodoG;
+                            }
+                            
+                            banderaciclohash=false;
+                            bandera=false;
+                           
+                        }else{
+                            if(aux.Siguiente==null){
+                                aux=Raiz;
+                                posicion=0;
+                            }else{
+                                posicion++;
+                                aux=aux.Siguiente;
+                            }
+                        }
+                    }
+                }
             }
         }
         
@@ -171,6 +260,7 @@ public class TablaHASH {
         //System.out.println(Porcentaje);
         if(Porcentaje>0.75){
             //incrementa
+            System.out.println("-------AUMENTO DE TAMAÑO CAMBIO DE POSICIONES-----");
             ComprobacionAunmento();
         }
         

@@ -2,18 +2,4 @@ digraph Pila {
    rankdir=LR;
    node [shape=record,width=.1,height=.1];
    N0 [label = "{0)|<fl0>} |{1)|<fl1>} |{2)|<fl2>} |{3)|<fl3>} |{4)|<fl4>} |{5)|<fl5>} |{6)|<fl6>} |{7)|<fl7>} |{8)|<fl8>} |{9)|<fl9>} |{10)|<fl10>} "];
-N1[label = "{<n> *-Usuario: Admin     *-Contraseña: c1c224b03cd9bc7b6a86d77f5dace40191766c485cd55dc48caf9ac873335d6f     *-Timestamp: null|<p> }"];
-N0:fl0 -> N1:n; 
-N2[label = "{<n> *-Usuario: CreadoFuera     *-Contraseña: 15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225     *-Timestamp: 21:52:59 06/11/2019|<p> }"];
-N0:fl1 -> N2:n; 
-N3[label = "{<n> *-Usuario: UsuarioCargaxd     *-Contraseña: d66fc6b772df943a486441af0c41f8fd61b62e48e71f5cc2903fa8343479027d     *-Timestamp: 21:54:00 06/11/2019|<p> }"];
-N0:fl2 -> N3:n; 
-N4[label = "{<n> *-Usuario: Intengoaalskdjañlskdj     *-Contraseña: 809e24cb5314e93d3ff173bac7f8468ba53005a44996bb240bd406fc490da862     *-Timestamp: 21:55:05 06/11/2019|<p> }"];
-N0:fl3 -> N4:n; 
-N5[label = "{<n> *-Usuario: Selvin     *-Contraseña: ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f     *-Timestamp: 21:54:00 06/11/2019|<p> }"];
-N0:fl4 -> N5:n; 
-N6[label = "{<n> *-Usuario: Jesy     *-Contraseña: d40a3b76fab279d8374ae3a910c25a8637dfac806e13b61540cd8deb76bf65e5     *-Timestamp: 21:54:00 06/11/2019|<p> }"];
-N0:fl5 -> N6:n; 
-N7[label = "{<n> *-Usuario: Jose     *-Contraseña: 0ef22482e40ef86cdcd4569f3e8ddf08e01ba8e7481bb916a429742de819ea76     *-Timestamp: 21:54:00 06/11/2019|<p> }"];
-N0:fl6 -> N7:n; 
 }

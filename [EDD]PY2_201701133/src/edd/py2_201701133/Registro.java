@@ -153,7 +153,7 @@ public class Registro extends javax.swing.JFrame {
                 Limpiar();
             }else{
                 //insertamos el usuario
-                EDDPY2_201701133.tb.AsignacionDato(usu, pas);
+                EDDPY2_201701133.tb.AsignacionDato(usu, pas,"",null);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 Limpiar();
             }

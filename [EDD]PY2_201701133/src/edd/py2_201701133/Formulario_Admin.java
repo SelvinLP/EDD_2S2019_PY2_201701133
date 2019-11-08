@@ -242,7 +242,7 @@ public class Formulario_Admin extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null,info,"CREACION USUARIO", JOptionPane.WARNING_MESSAGE );
                         Estado="--El Usuario Ya existe--";
                    }else{
-                       EDDPY2_201701133.tb.AsignacionDato(parte[0], parte[1]);
+                       EDDPY2_201701133.tb.AsignacionDato(parte[0], parte[1],"",null);
                        Estado="--Creado Correctamente--";
                    }
                }
