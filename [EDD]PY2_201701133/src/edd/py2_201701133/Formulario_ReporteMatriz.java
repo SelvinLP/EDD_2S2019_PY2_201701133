@@ -5,22 +5,22 @@
  */
 package edd.py2_201701133;
 
-import java.io.*;
+import java.io.File;
 
 /**
  *
  * @author Aragon Perez
  */
-public class Formulario_ReporteHash extends javax.swing.JFrame {
+public class Formulario_ReporteMatriz extends javax.swing.JFrame {
 
     /**
-     * Creates new form Formulario_ReporteHash
+     * Creates new form Formulario_ReporteMatriz
      */
-    public Formulario_ReporteHash() {
+    public Formulario_ReporteMatriz() {
         initComponents();
         //agregamos la informacion al jpan
         this.jEditorPane1.setContentType("text/html");
-        File InfoPNG=new File("TablaHash.html");
+        File InfoPNG=new File("MatrizAdyacencia.html");
         try {
             this.jEditorPane1.setPage(InfoPNG.toURI().toURL());
         } catch (Exception e) {
@@ -29,7 +29,6 @@ public class Formulario_ReporteHash extends javax.swing.JFrame {
         
         this.jEditorPane1.setEditable(false);
         this.jEditorPane1.setVisible(true);
-        
     }
 
     /**
@@ -60,20 +59,20 @@ public class Formulario_ReporteHash extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1070, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -82,8 +81,8 @@ public class Formulario_ReporteHash extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Formulario_Admin FMadmin=new Formulario_Admin();
-        FMadmin.show();
+        Formulario_Usuario FMUsuario=new Formulario_Usuario();
+        FMUsuario.show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -103,20 +102,20 @@ public class Formulario_ReporteHash extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Formulario_ReporteHash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Formulario_ReporteMatriz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Formulario_ReporteHash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Formulario_ReporteMatriz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Formulario_ReporteHash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Formulario_ReporteMatriz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Formulario_ReporteHash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Formulario_ReporteMatriz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Formulario_ReporteHash().setVisible(true);
+                new Formulario_ReporteMatriz().setVisible(true);
             }
         });
     }

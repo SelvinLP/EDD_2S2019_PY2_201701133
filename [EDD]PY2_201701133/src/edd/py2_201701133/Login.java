@@ -24,6 +24,8 @@ public class Login extends javax.swing.JFrame {
         jTextField1.setText("");
         jPasswordField1.setText("");
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -142,10 +144,11 @@ public class Login extends javax.swing.JFrame {
             this.dispose();
             
         }else{
-            boolean bandera=EDDPY2_201701133.tb.BusquedaInicioSesion(usu, pas);
-            if(bandera){
+            Grafo RaizGrafos=EDDPY2_201701133.tb.BusquedaInicioSesion(usu, pas);
+            if(RaizGrafos!=null){
                 //Ingreso Correctamente
                 Formulario_Usuario FormUsu=new Formulario_Usuario();
+                FormUsu.RaizGrafo=RaizGrafos;
                 FormUsu.show();
                 this.dispose();
                 

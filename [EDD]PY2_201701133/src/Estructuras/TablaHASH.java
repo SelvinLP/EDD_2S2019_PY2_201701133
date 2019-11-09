@@ -125,12 +125,12 @@ public class TablaHASH {
         }
         return bandera;
     } 
-    public boolean BusquedaInicioSesion(String usu, String pass){
-        boolean bandera=false;
+    public Grafo BusquedaInicioSesion(String usu, String pass){
+        Grafo bandera=null;
         NodoTabla aux=Raiz;
         while(aux!=null){
             if(aux.NombreUsuario.equals(usu)  && aux.Contraseña.equals(pass)){
-                bandera=true;
+                bandera=aux.GrafoUsuario;
                 break;
             }
             aux=aux.Siguiente;
@@ -324,6 +324,7 @@ public class TablaHASH {
             String cmd = "dot -Tpng TablaHash.dot -o TablaHash.png"; 
             Runtime.getRuntime().exec(cmd);
 //            Runtime.getRuntime().exec("cmd /C start TablaHash.png");  
+            
         }catch (IOException ioe) {
             //en caso de error
             System.out.println (ioe);

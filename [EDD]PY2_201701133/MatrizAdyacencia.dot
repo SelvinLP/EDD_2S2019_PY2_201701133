@@ -1,0 +1,18 @@
+digraph Matriz { 
+   node[shape=record,style=filled] 
+"-1-1"[label ="{RAIZ}",group = -1] 
+ "0-1"[label ="{/}",group = 0] 
+ "1-1"[label ="{Hola}",group = 1] 
+ "-10"[label ="{/}",group = -1] 
+ "01"[label ="{//Hola}",group = 0] 
+ "-11"[label ="{Hola}",group = -1] 
+ {rank = same;"-1-1";"0-1";"1-1";}
+{rank = same;"-10";"01";}
+{rank = same;"-11";}
+"-1-1"->"-10"  
+"-1-1"->"0-1" 
+"-10"->"-11"  
+"-10"->"01" 
+"0-1"->"1-1" 
+"1-1"->"01"  
+}
