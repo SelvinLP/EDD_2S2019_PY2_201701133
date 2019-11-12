@@ -10,6 +10,10 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.*;
+import javax.swing.tree.*;
+
+
 
 /**
  *
@@ -22,10 +26,23 @@ public class Formulario_Usuario extends javax.swing.JFrame {
      */
     public Grafo RaizGrafo=null;
     public String CarpetaPadre="/";
+    public Formulario_Usuario FMUsuaio;
+    public JTree tree;
+    public DefaultMutableTreeNode inicial;
     public Formulario_Usuario() {
         initComponents();
+        
+        inicial = new DefaultMutableTreeNode("/");
+         
+        //create the tree by passing in the root node
+        tree= new JTree(inicial);
+        tree.setBounds(170, 40, 600,400);
+        this.jPanel1.add(tree);
+        
     }
     
+    //creacion de JTREE
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,18 +59,24 @@ public class Formulario_Usuario extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CARPETAS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jButton4.setText("Carga Masiva");
+        jButton4.setText("Subir");
 
         jButton3.setText("Eliminar");
 
         jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Crear");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -96,23 +119,24 @@ public class Formulario_Usuario extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Home", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1039, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
-        );
-
         jButton6.setText("Rerporte Matriz");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Actualizar Datos");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Reporte Grafo");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
             }
         });
 
@@ -126,27 +150,27 @@ public class Formulario_Usuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6))
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton8)
+                        .addContainerGap(296, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(14, 14, 14))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton6)
+                    .addComponent(jButton7)
+                    .addComponent(jButton8))
+                .addGap(1, 1, 1)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(308, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,15 +178,14 @@ public class Formulario_Usuario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -180,10 +203,11 @@ public class Formulario_Usuario extends javax.swing.JFrame {
             //temporal
             RaizGrafo.GraficarMatriz();
         } catch (IOException ex) {
-            Logger.getLogger(Formulario_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al Generar la imagen");
         }
         Formulario_ReporteMatriz FmReporteMatriz=new Formulario_ReporteMatriz();
         FmReporteMatriz.show();
+        FmReporteMatriz.FMUsuario=FMUsuaio;
         //generamos el html y metemos la imagen
         File HTMLREPORTHASH=new File("MatrizAdyacencia.html");
 
@@ -203,15 +227,90 @@ public class Formulario_Usuario extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Formulario_Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dispose();
+        this.hide();
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Creacion de Carpetas
-        String NombreCarpetaNuva = JOptionPane.showInputDialog("Ingrese Nombre de la Carpeta");
-        RaizGrafo.InsertarMatrizz(CarpetaPadre, NombreCarpetaNuva);
+        //obtener posicion
+        TreeSelectionModel smd = tree.getSelectionModel();
+        if(smd.getSelectionCount()>0){
+            DefaultMutableTreeNode SeleccionadoPadre=(DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+            
+            //creacion de nuevo nodo
+            String NombreCarpetaNuva = JOptionPane.showInputDialog("Ingrese Nombre de la Carpeta");
+            DefaultMutableTreeNode nuevo=new DefaultMutableTreeNode(NombreCarpetaNuva);
+            SeleccionadoPadre.add(nuevo);
+            
+            DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+
+            model.reload();
+            //agregar a tabla
+            Object nodeInfo = SeleccionadoPadre.getUserObject();
+            CarpetaPadre=nodeInfo.toString();
+            RaizGrafo.InsertarMatrizz(CarpetaPadre, NombreCarpetaNuva);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        RaizGrafo.LlenarTree(tree,inicial);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String NombreCarpetaNuva = JOptionPane.showInputDialog("Ingrese Nuevo Nombre");
+        DefaultMutableTreeNode SeleccionadoPadre=(DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+        Object nodeInfo = SeleccionadoPadre.getUserObject();
+        String Cambio=nodeInfo.toString();
+        boolean bandera=RaizGrafo.Modificar(Cambio,NombreCarpetaNuva);
+        if(bandera){
+            //se modifico correctamente
+            JOptionPane.showMessageDialog(null, "Carpeta Modificada Correctamente");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+
+        try {
+            //temporal
+            RaizGrafo.GraficarGrafo();
+        } catch (IOException ex) {
+            System.out.println("Error al Generar la imagen");
+        }
+        Formulario_ReporteGrafo FmReporteGrafo=new Formulario_ReporteGrafo();
+        FmReporteGrafo.show();
+        FmReporteGrafo.FMUsuario=FMUsuaio;
+        //generamos el html y metemos la imagen
+        File HTMLREPORTHASH=new File("Grafo.html");
+
+        
+        //empezamos a agregar la imagen
+        try {
+            BufferedWriter Escritura = new BufferedWriter(new FileWriter(HTMLREPORTHASH));
+            Escritura.write("<HTML>\n");
+            Escritura.write("<HEAD>\n");
+            Escritura.write("<TITLE>REPORTE GRAFO</TITLE>\n");
+            Escritura.write("</HEAD>\n");
+            Escritura.write("<BODY>\n");
+            Escritura.write("<img src=\"Grafo.png\">\n");
+            Escritura.write("</BODY>\n");
+            Escritura.write("</HTML>\n");
+            Escritura.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Formulario_Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.hide();
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,8 +354,9 @@ public class Formulario_Usuario extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    public javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

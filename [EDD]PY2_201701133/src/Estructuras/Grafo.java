@@ -9,6 +9,9 @@ package Estructuras;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Enumeration;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  *
@@ -88,12 +91,13 @@ public class Grafo {
     public void InsertarenX(String Ubicacion,String NombreC,NodoGrafo nuevo){
         NodoGrafo aux=Raiz;
         int pos=ObtenerPos(Ubicacion);
-        System.out.println("valor de posicion para y es:"+pos);
+        //System.out.println("valor de posicion para y es:"+pos);
         //le asigno posicion al nodo
-        nuevo.x=pos;
+        nuevo.y=pos;
         boolean bandera=true;
         boolean InsertarAntes=false;
         NodoGrafo posicionNodo=aux;
+        NodoGrafo Anterior=null;
         NodoGrafo fin=null;
         while(aux!=null){
             if(aux.NombreCarpeta.equals(NombreC)){
@@ -102,6 +106,7 @@ public class Grafo {
             if(bandera){
                 aux=aux.Siguiente;
             }else{
+                
                 if(aux.y>pos){
                     InsertarAntes=true;
                     posicionNodo=aux;
@@ -109,6 +114,10 @@ public class Grafo {
                 }
                 if(aux.abajo==null){
                     fin=aux;
+                }else{
+                    if(aux.abajo.y>pos){
+                    Anterior=aux;
+                    }
                 }
                 aux=aux.abajo;
             }
@@ -118,6 +127,7 @@ public class Grafo {
         //insertamos
         
         if(InsertarAntes){
+            Anterior.abajo=nuevo;
             nuevo.abajo=posicionNodo;
         }else{
             fin.abajo=nuevo;
@@ -128,13 +138,13 @@ public class Grafo {
     public void InsertarenY(String Ubicacion,String NombreC,NodoGrafo nuevo){
         NodoGrafo aux=Raiz;
         int pos=ObtenerPos(NombreC);
-        System.out.println("valor de posicion para x :"+pos);
         //le asigno posicion al nodo
-        nuevo.y=pos;
+        nuevo.x=pos;
         boolean bandera=true;
         boolean InsertarAntes=false;
         NodoGrafo posicionNodo=aux;
         NodoGrafo fin=null;
+        NodoGrafo Anterior=null;
         while(aux!=null){
             if(aux.NombreCarpeta.equals(Ubicacion)){
                 bandera=false;
@@ -149,6 +159,11 @@ public class Grafo {
                 }
                 if(aux.Siguiente==null){
                     fin=aux;
+                    
+                }else{
+                    if(aux.Siguiente.x>pos){
+                    Anterior=aux;
+                    }
                 }
                 aux=aux.Siguiente;
             }
@@ -158,6 +173,7 @@ public class Grafo {
         //insertamos
         
         if(InsertarAntes){
+            Anterior.Siguiente=nuevo;
             nuevo.Siguiente=posicionNodo;
         }else{
             fin.Siguiente=nuevo;
@@ -178,12 +194,54 @@ public class Grafo {
         if(bandera){
             CrearCabecera(NombreC);
         }
-        NodoGrafo nuevo=new NodoGrafo(Ubicacion+"/"+NombreC);
+        NodoGrafo nuevo=new NodoGrafo(NombreC);
         InsertarenY(Ubicacion, NombreC, nuevo);
         InsertarenX(Ubicacion, NombreC, nuevo);
         
     }
-    
+    public boolean Modificar(String Cambio,String Nuevo){
+        boolean bandera=false;
+        NodoGrafo aux=Raiz;
+        while(aux!=null){
+            NodoGrafo aux2=aux;
+            while(aux2!=null){
+                if(aux2.NombreCarpeta.equals(Cambio)){
+                    aux2.NombreCarpeta=Nuevo;
+                    bandera=true;
+                }
+                aux2=aux2.abajo;
+            }
+            aux=aux.Siguiente;
+        }
+        return bandera;
+    }
+    public void LlenarTree(JTree PanelTree,DefaultMutableTreeNode inicial){
+        DefaultMutableTreeNode anterior= inicial;
+        NodoGrafo aux=Raiz;
+        aux=aux.abajo;
+        while(aux!=null){
+            NodoGrafo aux2=aux;
+            aux2=aux2.Siguiente;
+            while(aux2!=null){
+                DefaultMutableTreeNode nuevo=new DefaultMutableTreeNode(aux2.NombreCarpeta);
+                anterior.add(nuevo);
+                aux2=aux2.Siguiente;
+            }
+            aux=aux.abajo;
+            //busqueda
+            if(aux!=null){
+                Enumeration<DefaultMutableTreeNode> e = inicial.depthFirstEnumeration();
+                while (e.hasMoreElements()) {
+                    DefaultMutableTreeNode node = e.nextElement();
+                    if (node.toString().equals(aux.NombreCarpeta)) {
+                        anterior=node;
+                    }
+                }
+            }
+            //fin
+        }
+
+    }
     public void GraficarMatriz() throws IOException{
         String ruta = "MatrizAdyacencia.dot";
         File archivo = new File(ruta);
@@ -191,13 +249,29 @@ public class Grafo {
         Lect = new BufferedWriter(new FileWriter(archivo));
         String CadenaGraficar="digraph Matriz { \n";
         CadenaGraficar+="   node[shape=record,style=filled] \n";
-        //Creacion de Cabeceras y nodos
+        //Creacion de Cabeceras 
         NodoGrafo aux=Raiz;
         while(aux!=null){
+            CadenaGraficar +=  "\""+aux.x+aux.y+"\"" +"[label ="+"\""+"{";
+            CadenaGraficar +=  aux.NombreCarpeta+ "}\",group = "+aux.x+"] \n " ;
+            aux=aux.abajo;
+        }
+        aux=Raiz;
+        aux=aux.Siguiente;
+        while(aux!=null){
+            CadenaGraficar +=  "\""+aux.x+aux.y+"\"" +"[label ="+"\""+"{";
+            CadenaGraficar +=  aux.NombreCarpeta+ "}\",group = "+aux.x+"] \n " ;
+            aux=aux.Siguiente;
+        }
+        //creacion de nodos
+        aux=Raiz;
+        aux=aux.abajo;
+        while(aux!=null){
             NodoGrafo aux2=aux;
+            aux2=aux2.Siguiente;
             while(aux2!=null){
-               CadenaGraficar +=  "\""+aux2.x+aux2.y+"\"" +"[label ="+"\""+"{";
-                CadenaGraficar +=  aux2.NombreCarpeta+ "}\",group = "+aux2.x+"] \n " ;
+                CadenaGraficar +=  "\""+aux2.x+aux2.y+"\"" +"[label ="+"\""+"{";
+                CadenaGraficar +=  aux.NombreCarpeta+"/"+aux2.NombreCarpeta+ "}\",group = "+aux2.x+"] \n " ;
                 aux2=aux2.Siguiente;
             }
             aux=aux.abajo;
@@ -236,6 +310,65 @@ public class Grafo {
         Lect.close();
         try {
             String cmd = "dot -Tpng MatrizAdyacencia.dot -o MatrizAdyacencia.png"; 
+            Runtime.getRuntime().exec(cmd);
+//            Runtime.getRuntime().exec("cmd /C start MatrizAdyacencia.png");  
+            
+        }catch (IOException ioe) {
+            //en caso de error
+            System.out.println (ioe);
+        }
+        
+    }
+    
+    //grafica grafo
+    public void GraficarGrafo() throws IOException{
+        String ruta = "Grafo.circo";
+        File archivo = new File(ruta);
+        BufferedWriter Lect;
+        Lect = new BufferedWriter(new FileWriter(archivo));
+        String CadenaGraficar="digraph Grafo { \n";
+        CadenaGraficar+="   node[shape=record,style=filled] \n";
+        //Creacion de Cabeceras 
+        NodoGrafo aux=Raiz;
+        aux=aux.abajo;
+        while(aux!=null){
+            NodoGrafo aux2=aux;
+            int cont=-1;
+            while(aux2!=null){
+                cont++;
+                aux2=aux2.Siguiente;
+            }
+            CadenaGraficar +=  "\""+aux.x+aux.y+"\"" +"[label ="+"\""+"{";
+            CadenaGraficar += "Nombre: "+aux.NombreCarpeta+"\\n Cantidad: "+cont+"}\"] \n " ;
+            aux=aux.abajo;
+            
+        }
+        //creacion de las relaciones
+        aux=Raiz;
+        aux=aux.abajo;
+        while(aux!=null){
+            NodoGrafo aux2=aux;
+            aux2=aux2.Siguiente;
+            while(aux2!=null){
+                //buscar
+                NodoGrafo busc=Raiz;
+                while(busc!=null){
+                    if(aux2.NombreCarpeta.equals(busc.NombreCarpeta)){
+                        CadenaGraficar+="\""+aux.x+aux.y+"\"->\""+busc.x+busc.y+"\" \n";
+                    }
+                    busc=busc.abajo;
+                }
+                //fin buscar coordenada
+                aux2=aux2.Siguiente;
+            }
+            aux=aux.abajo;
+        }
+        
+        CadenaGraficar+="}";
+        Lect.write(CadenaGraficar);
+        Lect.close();
+        try {
+            String cmd = "circo -Tpng Grafo.circo -o Grafo.png"; 
             Runtime.getRuntime().exec(cmd);
 //            Runtime.getRuntime().exec("cmd /C start MatrizAdyacencia.png");  
             

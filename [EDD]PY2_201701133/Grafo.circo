@@ -1,0 +1,22 @@
+digraph Grafo { 
+   node[shape=record,style=filled] 
+"-10"[label ="{Nombre: /\n Cantidad: 2}"] 
+ "-11"[label ="{Nombre: circo\n Cantidad: 2}"] 
+ "-12"[label ="{Nombre: 1\n Cantidad: 1}"] 
+ "-13"[label ="{Nombre: 11\n Cantidad: 1}"] 
+ "-14"[label ="{Nombre: 12\n Cantidad: 0}"] 
+ "-15"[label ="{Nombre: 21\n Cantidad: 1}"] 
+ "-16"[label ="{Nombre: 22\n Cantidad: 2}"] 
+ "-17"[label ="{Nombre: sd\n Cantidad: 0}"] 
+ "-18"[label ="{Nombre: mo\n Cantidad: 0}"] 
+ "-19"[label ="{Nombre: bvvc\n Cantidad: 0}"] 
+ "-10"->"-11" 
+"-10"->"-15" 
+"-11"->"-12" 
+"-11"->"-18" 
+"-12"->"-13" 
+"-13"->"-14" 
+"-15"->"-16" 
+"-16"->"-17" 
+"-16"->"-19" 
+}

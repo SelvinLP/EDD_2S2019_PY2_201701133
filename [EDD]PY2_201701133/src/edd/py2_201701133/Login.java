@@ -149,6 +149,7 @@ public class Login extends javax.swing.JFrame {
                 //Ingreso Correctamente
                 Formulario_Usuario FormUsu=new Formulario_Usuario();
                 FormUsu.RaizGrafo=RaizGrafos;
+                FormUsu.FMUsuaio=FormUsu;
                 FormUsu.show();
                 this.dispose();
                 
