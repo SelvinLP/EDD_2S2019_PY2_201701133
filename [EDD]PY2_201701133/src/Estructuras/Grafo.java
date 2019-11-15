@@ -322,7 +322,7 @@ public class Grafo {
     
     //grafica grafo
     public void GraficarGrafo() throws IOException{
-        String ruta = "Grafo.circo";
+        String ruta = "Grafo.twopi";
         File archivo = new File(ruta);
         BufferedWriter Lect;
         Lect = new BufferedWriter(new FileWriter(archivo));
@@ -368,7 +368,7 @@ public class Grafo {
         Lect.write(CadenaGraficar);
         Lect.close();
         try {
-            String cmd = "circo -Tpng Grafo.circo -o Grafo.png"; 
+            String cmd = "twopi -Tpng Grafo.twopi -o Grafo.png"; 
             Runtime.getRuntime().exec(cmd);
 //            Runtime.getRuntime().exec("cmd /C start MatrizAdyacencia.png");  
             
