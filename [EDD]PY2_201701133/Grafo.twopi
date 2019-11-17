@@ -1,20 +1,10 @@
 digraph Grafo { 
    node[shape=record,style=filled] 
 "-10"[label ="{Nombre: /\n Cantidad: 2}"] 
- "-11"[label ="{Nombre: Hola\n Cantidad: 2}"] 
- "-12"[label ="{Nombre: Hola1\n Cantidad: 1}"] 
- "-13"[label ="{Nombre: Hola11\n Cantidad: 0}"] 
- "-14"[label ="{Nombre: Hola2\n Cantidad: 0}"] 
- "-15"[label ="{Nombre: Adios\n Cantidad: 3}"] 
- "-16"[label ="{Nombre: Adios1\n Cantidad: 0}"] 
- "-17"[label ="{Nombre: Adios2\n Cantidad: 0}"] 
- "-18"[label ="{Nombre: Adios3\n Cantidad: 0}"] 
+ "-11"[label ="{Nombre: Si\n Cantidad: 1}"] 
+ "-12"[label ="{Nombre: No\n Cantidad: 0}"] 
+ "-13"[label ="{Nombre: Hola\n Cantidad: 0}"] 
  "-10"->"-11" 
-"-10"->"-15" 
-"-11"->"-12" 
+"-10"->"-12" 
 "-11"->"-13" 
-"-12"->"-14" 
-"-15"->"-16" 
-"-15"->"-17" 
-"-15"->"-18" 
 }

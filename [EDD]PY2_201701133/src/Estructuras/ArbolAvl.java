@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import javax.swing.JOptionPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  *
@@ -83,13 +86,13 @@ public class ArbolAvl {
         n.Izquierda = n2.Derecha;
         n2.Derecha= n;
         //Actualizar
-        if(n2.Equilibrio==1){
-            n1.Equilibrio=-1;
+        if(n2.Equilibrio== 1){
+            n1.Equilibrio= -1;
         }else{
             n1.Equilibrio=0;
         }
         if(n2.Equilibrio== -1){
-            n1.Equilibrio= 1;
+            n.Equilibrio= 1;
         }else{
             n.Equilibrio=0;
         }
@@ -107,7 +110,7 @@ public class ArbolAvl {
             n1.Equilibrio=0;
         }else{
             n.Equilibrio=1;
-            n1.Equilibrio=-1;
+            n1.Equilibrio= -1;
         }
         return n1;
     }
@@ -141,18 +144,19 @@ public class ArbolAvl {
             int segundos = calendario.get(Calendar.SECOND);
             String tiempo=hora + ":" + minutos + ":" + segundos;
             verificador verifi=new verificador(false);
-            InsertarData(this.Raiz,Nombre, Content, tiempo, dueño,verifi);
+            this.Raiz=InsertarData(this.Raiz,Nombre, Content, tiempo, dueño,verifi);
     }
     public NodoArbol InsertarData(NodoArbol raiz,String Nombre,String Content,String tiempo,String dueño,verificador verifica){
-        if(raiz!=null){
-            this.Raiz=new NodoArbol(Nombre, Content, tiempo, dueño);
+        if(raiz==null){
+            raiz=new NodoArbol(Nombre, Content, tiempo, dueño);
             verifica.DarAVerificador(true);
         }else{
-            if(raiz.NombreArchivo.compareTo(Nombre)==-1){
+            if(raiz.NombreArchivo.compareTo(Nombre)>0){
+                //System.out.println("Se Fue Hacia La Izquierda");
                 //el dato va antes de la raiz
                 //izquierda
-                NodoArbol NodoResu=InsertarData(raiz.Izquierda, Nombre, Content, tiempo, dueño,verifica);
-                raiz.Izquierda=NodoResu;
+                NodoArbol NodoResuI=InsertarData(raiz.Izquierda, Nombre, Content, tiempo, dueño,verifica);
+                raiz.Izquierda=NodoResuI;
                 //comprobacion de equilibiro
                 if(verifica.RecibirAValor()){
                     if(raiz.Equilibrio==1){
@@ -176,11 +180,12 @@ public class ArbolAvl {
                 }
                     
             }else{
-                if(raiz.NombreArchivo.compareTo(Nombre)==1){
+                if(raiz.NombreArchivo.compareTo(Nombre)<0){
+                    //System.out.println("Se Fue Hacia la derecha");
                     //el dato va despues de la raiz
                     //derecha
-                    NodoArbol NodoResu=InsertarData(raiz.Derecha, Nombre, Content, tiempo, dueño,verifica);
-                    raiz.Derecha=NodoResu;
+                    NodoArbol NodoResuD=InsertarData(raiz.Derecha, Nombre, Content, tiempo, dueño,verifica);
+                    raiz.Derecha=NodoResuD;
                     //comprobacion de equilibiro
                     if(verifica.RecibirAValor()){
                         if(raiz.Equilibrio==1){
@@ -207,10 +212,14 @@ public class ArbolAvl {
                 
                 }else{
                     //en caso de que los datos sean iguales
-                    if(raiz.NombreArchivo.compareTo(Nombre)==0){
-                        System.out.println(" EL DATO YA EXISTE");
+                    int resp = JOptionPane.showConfirmDialog(null, "El Archivo Ya Existe,¿Desea Remplazar?");
+                    if(resp==0){
+                        //en caso de que sea si
+                        raiz.Contenido=Content;
+                        raiz.NombreArchivo=Nombre;
+                        raiz.Propetario=dueño;
+                        raiz.TimeStamp=tiempo;
                     }
-                    
                 }
             }//fin else
             
@@ -219,7 +228,27 @@ public class ArbolAvl {
         return raiz;
        
     }
-    
+    //Metodo Obtener Cadena 
+    public String ObtenerContenido(NodoArbol raiz,String Nombre,String Cadena){
+        if(raiz!=null){
+            Cadena=ObtenerContenido(raiz.Izquierda, Nombre, Cadena);
+            if(raiz.NombreArchivo.equals(Nombre)){
+                Cadena=raiz.Contenido;
+            }
+            Cadena=ObtenerContenido(raiz.Derecha, Nombre, Cadena);
+        }
+        return Cadena;
+    }
+    //llenar al iniciar sesion
+    public void llenarCamposJtree(NodoArbol raiz,DefaultMutableTreeNode inicial){
+        if(raiz!=null){
+            llenarCamposJtree(raiz.Izquierda, inicial);
+            DefaultMutableTreeNode nuevo=new DefaultMutableTreeNode(raiz.NombreArchivo);
+            inicial.add(nuevo);
+            
+            llenarCamposJtree(raiz.Derecha, inicial);
+        }
+    }
     //Metodo Graficar
     public void GraficarArbolAVL() throws IOException{
         String ruta = "ArbolAVL.dot";
@@ -231,8 +260,8 @@ public class ArbolAvl {
         this.CadenaImprimir += "node[shape=record,style=filled] " + '\n';
         //obtenemos alturas
         int alt=0;
-        this.Altura(Raiz, alt);
-        this.DatosArbol(Raiz, alt);
+        this.Altura(this.Raiz, alt);
+        this.DatosArbol(this.Raiz, alt);
         this.CadenaImprimir += '\n' + "}";
         
         Lect.write(this.CadenaImprimir);
@@ -266,7 +295,7 @@ public class ArbolAvl {
         }
         if(nodoraiz.Derecha !=null ){
             this.DatosArbol(nodoraiz.Derecha,alt+1);
-            this.CadenaImprimir += "\""+ nodoraiz.NombreArchivo +"\":C0->"+"\""+nodoraiz.Derecha.NombreArchivo+"\"; \n";
+            this.CadenaImprimir += "\""+ nodoraiz.NombreArchivo +"\":C2->"+"\""+nodoraiz.Derecha.NombreArchivo+"\"; \n";
         }
 
 

@@ -1,0 +1,6 @@
+digraph ARBOL { 
+rankdir=TB
+node[shape=record,style=filled] 
+"yespng"[label ="<C0>|<C1>Nombre: yespng\n Contenido:  alskdj\n Timestamp:  20:47:40\n Propetario:  asdasdasd\n Altura:  0\n FE:  0|<C2>"]; 
+
+}

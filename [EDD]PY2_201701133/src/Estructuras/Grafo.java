@@ -25,7 +25,7 @@ class NodoGrafo{
     String TimeStamp;
     NodoGrafo Siguiente;
     NodoGrafo abajo;
-    
+    ArbolAvl Arbol;
     public NodoGrafo(String NombreC) {
         this.NombreCarpeta=NombreC;
         this.Siguiente=null;
@@ -47,10 +47,13 @@ public class Grafo {
     }
 
     public void CrearCabecera(String NombreC){
+        ArbolAvl nuevoArbol=new ArbolAvl();
         //para x
-        NodoGrafo nuevo=new NodoGrafo(NombreC);
+        NodoGrafo nuevo=new NodoGrafo(NombreC);        
         //para  y
         NodoGrafo nuevo2=new NodoGrafo(NombreC);
+        nuevo.Arbol=nuevoArbol;
+        nuevo2.Arbol=nuevoArbol;
         if(Raiz==null){
             Raiz=nuevo;
             //para x y y
@@ -73,6 +76,7 @@ public class Grafo {
             UltimoY=nuevo2;
             size++;
         }
+        
     }
     public int ObtenerPos(String cadena){
         int cont=-1;
@@ -227,6 +231,8 @@ public class Grafo {
                 anterior.add(nuevo);
                 aux2=aux2.Siguiente;
             }
+            //archivos
+            aux.Arbol.llenarCamposJtree(aux.Arbol.Raiz, anterior);
             aux=aux.abajo;
             //busqueda
             if(aux!=null){
@@ -242,6 +248,39 @@ public class Grafo {
         }
 
     }
+    //Metodo para insertar en arbol
+    public void InsertarArbol(String NombrePadr,String NombreA,String Conten,String dueño){
+        //entontramos el padre en la cabecera
+        NodoGrafo aux=this.Raiz;
+        while(aux!=null){
+            if(aux.NombreCarpeta.equals(NombrePadr)){
+                aux.Arbol.InsertarArbol(NombreA, Conten, dueño);
+            }
+            aux=aux.abajo;
+        }
+    }
+    //Metodo Busca y llama Graficar Arbol
+    public void LlamarGraficarArbol(String Padre) throws IOException{
+        NodoGrafo aux=this.Raiz;
+        while(aux!=null){
+            if(aux.NombreCarpeta.equals(Padre)){
+                aux.Arbol.GraficarArbolAVL();
+            }
+            aux=aux.abajo;
+        }
+    }
+    public String MostrarContenido(String Padre,String Nombre){
+        NodoGrafo aux=this.Raiz;
+        String Cadena="";
+        while(aux!=null){
+            if(aux.NombreCarpeta.equals(Padre)){
+                Cadena=aux.Arbol.ObtenerContenido(aux.Arbol.Raiz, Nombre, Cadena);
+            }
+            aux=aux.abajo;
+        }
+        return Cadena;
+    }
+    //Metodo Graficar
     public void GraficarMatriz() throws IOException{
         String ruta = "MatrizAdyacencia.dot";
         File archivo = new File(ruta);
