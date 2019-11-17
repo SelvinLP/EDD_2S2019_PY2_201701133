@@ -6,6 +6,8 @@
 package edd.py2_201701133;
 
 import Estructuras.Grafo;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.*;
 
 /**
@@ -142,7 +144,13 @@ public class Login extends javax.swing.JFrame {
             Formulario_Admin FormAdmin=new Formulario_Admin();
             FormAdmin.show();
             this.dispose();
-            
+             //bitacora
+            Calendar calendario = new GregorianCalendar();
+            int hora =calendario.get(Calendar.HOUR_OF_DAY);
+            int minutos = calendario.get(Calendar.MINUTE);
+            int segundos = calendario.get(Calendar.SECOND);
+            String tiempo=hora + ":" + minutos + ":" + segundos;
+            EDDPY2_201701133.Bitacora.Insertar(tiempo, "Admin", "Inicio de Sesion");
         }else{
             Grafo RaizGrafos=EDDPY2_201701133.tb.BusquedaInicioSesion(usu, pas);
             if(RaizGrafos!=null){
@@ -153,6 +161,13 @@ public class Login extends javax.swing.JFrame {
                 FormUsu.Usuario=usu;
                 FormUsu.show();
                 this.dispose();
+                                        //bitacora
+                Calendar calendario = new GregorianCalendar();
+                int hora =calendario.get(Calendar.HOUR_OF_DAY);
+                int minutos = calendario.get(Calendar.MINUTE);
+                int segundos = calendario.get(Calendar.SECOND);
+                String tiempo=hora + ":" + minutos + ":" + segundos;
+                EDDPY2_201701133.Bitacora.Insertar(tiempo, usu, "Inicio de Sesion");
                 
             }else{
                 JOptionPane.showMessageDialog(null, "--Error al Ingresar los datos--","INICIO SESION", JOptionPane.WARNING_MESSAGE);

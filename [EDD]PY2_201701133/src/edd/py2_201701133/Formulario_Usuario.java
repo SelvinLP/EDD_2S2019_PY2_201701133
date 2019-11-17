@@ -7,6 +7,8 @@ package edd.py2_201701133;
 
 import Estructuras.Grafo;
 import java.io.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -37,7 +39,7 @@ public class Formulario_Usuario extends javax.swing.JFrame {
          
         //create the tree by passing in the root node
         tree= new JTree(inicial);
-        tree.setBounds(160, 40, 280,430);
+        tree.setBounds(170, 40, 285,460);
         this.jPanel1.add(tree);
         
     }
@@ -375,6 +377,13 @@ public class Formulario_Usuario extends javax.swing.JFrame {
             Object nodeInfo = SeleccionadoPadre.getUserObject();
             CarpetaPadre=nodeInfo.toString();
             RaizGrafo.InsertarArbol(CarpetaPadre,NombreArchivoNuevo, ContenidoArchivo, this.Usuario);
+                        //bitacora
+            Calendar calendario = new GregorianCalendar();
+            int hora =calendario.get(Calendar.HOUR_OF_DAY);
+            int minutos = calendario.get(Calendar.MINUTE);
+            int segundos = calendario.get(Calendar.SECOND);
+            String tiempo=hora + ":" + minutos + ":" + segundos;
+            EDDPY2_201701133.Bitacora.Insertar(tiempo, Usuario, "Modifico un Archivo:"+NombreArchivoNuevo);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -397,6 +406,13 @@ public class Formulario_Usuario extends javax.swing.JFrame {
             Object nodeInfo = SeleccionadoPadre.getUserObject();
             CarpetaPadre=nodeInfo.toString();
             RaizGrafo.InsertarArbol(CarpetaPadre,NombreArchivoNuevo, ContenidoArchivo, this.Usuario);
+            //bitacora
+            Calendar calendario = new GregorianCalendar();
+            int hora =calendario.get(Calendar.HOUR_OF_DAY);
+            int minutos = calendario.get(Calendar.MINUTE);
+            int segundos = calendario.get(Calendar.SECOND);
+            String tiempo=hora + ":" + minutos + ":" + segundos;
+            EDDPY2_201701133.Bitacora.Insertar(tiempo, Usuario, "Creo un Archivo:"+NombreArchivoNuevo);
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -495,8 +511,15 @@ public class Formulario_Usuario extends javax.swing.JFrame {
             Object nodeInfo = SeleccionadoPadre.getUserObject();
             CarpetaPadre=nodeInfo.toString();
             RaizGrafo.InsertarMatrizz(CarpetaPadre, NombreCarpetaNuva);
+            //bitacora
+            Calendar calendario = new GregorianCalendar();
+            int hora =calendario.get(Calendar.HOUR_OF_DAY);
+            int minutos = calendario.get(Calendar.MINUTE);
+            int segundos = calendario.get(Calendar.SECOND);
+            String tiempo=hora + ":" + minutos + ":" + segundos;
+            EDDPY2_201701133.Bitacora.Insertar(tiempo, Usuario, "Creo una Carpeta:"+NombreCarpetaNuva);
         }
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -509,6 +532,13 @@ public class Formulario_Usuario extends javax.swing.JFrame {
         if(bandera){
             //se modifico correctamente
             JOptionPane.showMessageDialog(null, "Carpeta Modificada Correctamente");
+                        //bitacora
+            Calendar calendario = new GregorianCalendar();
+            int hora =calendario.get(Calendar.HOUR_OF_DAY);
+            int minutos = calendario.get(Calendar.MINUTE);
+            int segundos = calendario.get(Calendar.SECOND);
+            String tiempo=hora + ":" + minutos + ":" + segundos;
+            EDDPY2_201701133.Bitacora.Insertar(tiempo, Usuario, "Modifico una Carpeta:"+NombreCarpetaNuva);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -545,7 +575,13 @@ public class Formulario_Usuario extends javax.swing.JFrame {
                    line = br.readLine();
                }
 
-
+                //bitacora
+                Calendar calendario = new GregorianCalendar();
+                int hora =calendario.get(Calendar.HOUR_OF_DAY);
+                int minutos = calendario.get(Calendar.MINUTE);
+                int segundos = calendario.get(Calendar.SECOND);
+                String tiempo=hora + ":" + minutos + ":" + segundos;
+                EDDPY2_201701133.Bitacora.Insertar(tiempo, Usuario, "Carga Masiva Archivos");
             } catch (Exception e) {
                 System.out.println (e);
             }
@@ -572,6 +608,13 @@ public class Formulario_Usuario extends javax.swing.JFrame {
             String Cadena=RaizGrafo.MostrarContenido(CarpetaPadre, NombreDescarga);
             Lect.write(Cadena);
             Lect.close();
+            //bitacora
+            Calendar calendario = new GregorianCalendar();
+            int hora =calendario.get(Calendar.HOUR_OF_DAY);
+            int minutos = calendario.get(Calendar.MINUTE);
+            int segundos = calendario.get(Calendar.SECOND);
+            String tiempo=hora + ":" + minutos + ":" + segundos;
+            EDDPY2_201701133.Bitacora.Insertar(tiempo, Usuario, "Descargo un Archivo");
         } catch (Exception e) {
         }
 

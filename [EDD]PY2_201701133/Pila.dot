@@ -1,0 +1,4 @@
+digraph Pila { 
+node[shape=record,style=filled] 
+    1[label ="{| TimeStamp: 16:12:5 \n Usuario: SelvinLP1234 \n Operacion: Creacion de Usuario| TimeStamp: 16:12:18 \n Usuario: SelvinLP1234 \n Operacion: Creo un Archivo:yEah.txt| TimeStamp: 16:12:25 \n Usuario: SelvinLP1234 \n Operacion: Creo una Carpeta:Si| TimeStamp: 16:12:29 \n Usuario: SelvinLP1234 \n Operacion: Creo una Carpeta:NO| TimeStamp: 16:12:34 \n Usuario: SelvinLP1234 \n Operacion: Creo una Carpeta:TALVEZ| TimeStamp: 16:12:42 \n Usuario: SelvinLP1234 \n Operacion: Creo un Archivo:xd.png| TimeStamp: 16:13:45 \n Usuario: Admin \n Operacion: Carga Masiva de Usuarios }"]
+ }

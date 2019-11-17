@@ -1,10 +1,8 @@
 digraph Grafo { 
    node[shape=record,style=filled] 
-"-10"[label ="{Nombre: /\n Cantidad: 2}"] 
- "-11"[label ="{Nombre: Si\n Cantidad: 1}"] 
- "-12"[label ="{Nombre: No\n Cantidad: 0}"] 
- "-13"[label ="{Nombre: Hola\n Cantidad: 0}"] 
+"-10"[label ="{Nombre: /\n Cantidad: 1}"] 
+ "-11"[label ="{Nombre: HOLA\n Cantidad: 1}"] 
+ "-12"[label ="{Nombre: Yes.xtx\n Cantidad: 0}"] 
  "-10"->"-11" 
-"-10"->"-12" 
-"-11"->"-13" 
+"-11"->"-12" 
 }

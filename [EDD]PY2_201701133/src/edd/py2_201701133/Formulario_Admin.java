@@ -9,6 +9,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import java.util.logging.*;
 import javax.swing.*;
@@ -109,6 +111,11 @@ public class Formulario_Admin extends javax.swing.JFrame {
         });
 
         jButton5.setText("Rerporte Pila");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -270,7 +277,13 @@ public class Formulario_Admin extends javax.swing.JFrame {
 
 
         jTable1.setModel(modelo);
-
+                //bitacora
+        Calendar calendario = new GregorianCalendar();
+        int hora =calendario.get(Calendar.HOUR_OF_DAY);
+        int minutos = calendario.get(Calendar.MINUTE);
+        int segundos = calendario.get(Calendar.SECOND);
+        String tiempo=hora + ":" + minutos + ":" + segundos;
+        EDDPY2_201701133.Bitacora.Insertar(tiempo, "Admin", "Carga Masiva de Usuarios");
         } catch (Exception e) {
             System.out.println (e);
         }
@@ -281,6 +294,40 @@ public class Formulario_Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         jTable1.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        try {
+            //generamos la imagen
+             EDDPY2_201701133.Bitacora.GraficarPila();
+        } catch (IOException ex) {
+            Logger.getLogger(Formulario_Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Formulario_ReportePila FmReportePila=new Formulario_ReportePila();
+        FmReportePila.show();
+        //generamos el html y metemos la imagen
+        File HTMLREPORTHASH=new File("Pila.html");
+
+        
+        //empezamos a agregar la imagen
+        try {
+            BufferedWriter Escritura = new BufferedWriter(new FileWriter(HTMLREPORTHASH));
+            Escritura.write("<HTML>\n");
+            Escritura.write("<HEAD>\n");
+            Escritura.write("<TITLE>REPORTE PILA</TITLE>\n");
+            Escritura.write("</HEAD>\n");
+            Escritura.write("<BODY>\n");
+            Escritura.write("<img src=\"Pila.png\">\n");
+            Escritura.write("</BODY>\n");
+            Escritura.write("</HTML>\n");
+            Escritura.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Formulario_Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

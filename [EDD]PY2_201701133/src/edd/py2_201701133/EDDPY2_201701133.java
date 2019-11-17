@@ -5,6 +5,7 @@
  */
 package edd.py2_201701133;
 
+import Estructuras.Pila;
 import Estructuras.TablaHASH;
 import java.io.IOException;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class EDDPY2_201701133 {
     public static Login FMLogin=new Login();
     public static TablaHASH tb=new TablaHASH();
+    public static Pila Bitacora=new Pila();
     /**
      * @param args the command line arguments
      */

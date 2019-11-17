@@ -6,6 +6,8 @@
 package edd.py2_201701133;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -156,6 +158,13 @@ public class Registro extends javax.swing.JFrame {
                 EDDPY2_201701133.tb.AsignacionDato(usu, pas,"",null);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Correctamente");
                 Limpiar();
+                //bitacora
+                Calendar calendario = new GregorianCalendar();
+                int hora =calendario.get(Calendar.HOUR_OF_DAY);
+                int minutos = calendario.get(Calendar.MINUTE);
+                int segundos = calendario.get(Calendar.SECOND);
+                String tiempo=hora + ":" + minutos + ":" + segundos;
+                EDDPY2_201701133.Bitacora.Insertar(tiempo, "Sistema", "Creacion de Usuario");
             }
         }
         
